@@ -3,15 +3,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from google.cloud import bigquery
-import os
+import json
+from google.oauth2 import service_account
 import folium
 from folium.plugins import MarkerCluster
 from streamlit_folium import st_folium
 
-# Loading Google Cloud credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "config/solid-saga-452604-c8-c21647e6c3dc.json"
-# Set up BigQuery client
-client = bigquery.Client()
+# Load Google Cloud credentials from Streamlit Secrets
+gcp_credentials = json.loads(st.secrets["gcp"]["service_account"])
+
+# Authenticate using the credentials
+credentials = service_account.Credentials.from_service_account_info(gcp_credentials)
+
+# Set up BigQuery client with the credentials
+client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
 # Fetch Data
 query = """
