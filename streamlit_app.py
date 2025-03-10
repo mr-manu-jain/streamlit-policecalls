@@ -7,9 +7,8 @@ from folium.plugins import MarkerCluster
 from streamlit_folium import st_folium
 
 # Load Data from Local CSV Files
-df = pd.read_csv("analysis_yoy_analysis.csv")  # Ensure this file is in the same directory
-arrests_data = pd.read_csv("analysis_arrests_data.csv")  # Ensure this file is in the same directory
-
+df = pd.read_csv("analysis_yoy_analysis1.csv")
+arrests_data = pd.read_csv("analysis_arrests_data.csv")
 # Ensure 'OFFENSE_DATE' is datetime
 df['OFFENSE_DATE'] = pd.to_datetime(df['OFFENSE_DATE'])
 
